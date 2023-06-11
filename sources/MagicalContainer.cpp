@@ -10,12 +10,15 @@ using namespace ariel;
    MagicalContainer::MagicalContainer() {}
     
     void MagicalContainer::addElement(int element) {
-        elements.push_back(element);
-        if(isPrime(element)) {
-            primeElem.push_back(element);            // if prime insert to prime container
-        }
-       sort(elements.begin(), elements.end());         // each push we sort
-}
+       //find the first place in the range which has a value bigger than the element
+        auto it = upper_bound(this->elements.begin(), this->elements.end(), element);
+        this->elements.insert(it, element);  
+        auto itPrime = upper_bound(this->primeElem.begin(), this->primeElem.end(), element);
+        if(isPrime(element))
+        {
+            this->primeElem.insert(itPrime, element);    
+        }  
+    }
     
     void MagicalContainer::removeElement(int element) {
         for (auto it = elements.begin(); it != elements.end(); ++it) {
